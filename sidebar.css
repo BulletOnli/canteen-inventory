@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+aside {
+  width: 20%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #004200; */
+  background-color: #416d19;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  padding: 2rem 20px;
+  position: sticky;
+  top: 0;
+  color: white;
+}
+
+aside .sidebar-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 2rem 0 1rem 0;
+}
+
+aside .sidebar-logo-container img {
+  width: 80px;
+}
+
+aside .sidebar-logo-container p {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+aside ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out,
+    font-weight 0.1s ease-in-out;
+}
+
+.accordion-button:hover,
+.sidebar-link:hover,
+.active-sidebar-link {
+  background-color: #ee9c1e !important;
+  /* background-color: #9bcf53; */
+  color: white;
+  font-weight: 500;
+}
+
+#accordionExample .accordion-item {
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+
+.accordion-collapse {
+  /* background-color: red; */
+}
+
+.accordion-button::after {
+  color: white;
+}
+
+/* .active-sidebar-link :hover {
+  background-color: rgb(55, 121, 37);
+} */

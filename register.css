@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-image: url(./images/gjc2.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.left-side {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-side {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* color: white; */
+  background-color: white;
+}
+
+.right-side-contents {
+  width: 100%;
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-side-contents .gjc-logo {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.right-side form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.right-side .input-container {
+  width: 100%;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  border: 1px solid gray;
+  margin-bottom: 1rem;
+}
+
+.right-side .input-container i {
+  color: #000000bb;
+}
+
+.right-side form input {
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.right-side form button {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #31700f;
+  color: white;
+}
+
+.right-side form button:hover {
+  background-color: rgb(55, 121, 37);
+}
+
+.right-side-contents span {
+  margin-top: 2rem;
+  font-size: 14px;
+}
