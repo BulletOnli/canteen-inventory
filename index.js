@@ -43,6 +43,16 @@ new Chart(barChart, {
         data: [1200, 3190, 3324, 5424, 2554, 3000, 8000],
         borderWidth: 1,
       },
+      {
+        label: "N/A",
+        data: [2320, 3420, 1200, 4130, 3150, 5230, 3390],
+        borderWidth: 1,
+      },
+      {
+        label: "N/A",
+        data: [2570, 4160, 4450, 860, 2380, 4350, 6330],
+        borderWidth: 1,
+      },
     ],
   },
   options: {
