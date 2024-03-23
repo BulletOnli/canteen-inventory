@@ -72,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div id="collapse2" class="accordion-collapse collapse show" data-bs-parent="#productsAccordion">
             <div class="accordion-body pt-0">
               <a href="./products.php" class="text-white link-underline link-underline-opacity-0">
-                <li class="sidebar-link mt-2 active-sidebar-link ">
+                <li class="sidebar-link mt-2  ">
                   <i class="fa-solid fa-house "></i>
                   <p class="mb-0 ">List of Products</p>
                 </li>
               </a>
               <a href="./addproduct.php" class="text-white link-underline link-underline-opacity-0">
-                <li class="sidebar-link mt-2 ">
+                <li class="sidebar-link mt-2 active-sidebar-link">
                   <i class="fa-solid fa-house"></i>
                   <p class="mb-0 ">Add Product</p>
                 </li>
@@ -129,46 +129,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="w-100">
         <div class="d-flex align-items-center gap-2 ">
           <p class="fs-2 fw-medium m-0  ">Products</p>
-          <p class="fw-6 text-secondary fw-medium m-0 ">List of Products</p>
+          <p class="fw-6 text-secondary fw-medium m-0 ">Add New Product</p>
         </div>
       </div>
-      <div class="w-100 ">
-        <p class="fs-5 fw-medium "></p>
-        <table class="table table-hover">
-          <thead class="text-center">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Product</th>
-              <th scope="col">Price</th>
-              <th scope="col">Stocks</th>
-              <th scope="col">Category</th>
-              <th scope="col">Stall</th>
-              <th scope="col">Last modified</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody id="products-table" class="text-center"></tbody>
-        </table>
-        <nav aria-label="Page navigation example" class="w-100 d-flex align-items-center justify-content-between ">
-          <div>
-            Showing 20 items per page
+      <div class="container-fluid mt-4 ">
+        <div class="row column-gap-2">
+          <div class="col-7   p-4 rounded-3 bg-white shadow-sm">
+            <div class="col">
+              <div class="mb-3">
+                <label for="" class="form-label">Product name</label>
+                <input type="text" class="form-control" id="">
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Category</label>
+                <select class="form-select" aria-label="Product Category">
+                  <option selected disabled>Choose product category</option>
+                  <option value="beverages">Beverages</option>
+                  <option value="snacks">Snacks</option>
+                  <option value="sandwiches">Sandwiches</option>
+                  <option value="desserts">Desserts</option>
+                  <option value="salads">Salads</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Price</label>
+                <input type="number" step="5" class="form-control" id="">
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="" class="form-label">Stocks available</label>
+                <input type="text" class="form-control" id="">
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">N/A</label>
+                <input type="text" class="form-control" id="">
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">N/A</label>
+                <input type="text" class="form-control" id="">
+              </div>
+            </div>
           </div>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+          <div class="col">
+            <div class="w-100 h-auto  p-4 rounded-3 bg-white shadow-sm">
+              <div class="mb-3">
+                <label for="" class="form-label">Stall</label>
+                <input type="text" class="form-control" id="">
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Password</label>
+                <input type="text" class="form-control" id="">
+              </div>
+            </div>
+            <button class="w-100 btn btn-success mt-2">Add Product</button>
+          </div>
+        </div>
       </div>
     </div>
   </main>

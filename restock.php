@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products | Canteen Inventory</title>
+  <title>Restock Products | Canteen Inventory</title>
 
   <link rel="stylesheet" href="./index.css" />
   <script src="https://kit.fontawesome.com/effd3867de.js" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <ul class="p-0 overflow-auto  ">
       <a href="./index.php" class="text-white  link-underline link-underline-opacity-0">
-        <li class="sidebar-link">
+        <li class="sidebar-link ">
           <i class="fa-solid fa-chart-simple"></i>
           <p class="mb-0 ">Dashboard</p>
         </li>
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div id="collapse2" class="accordion-collapse collapse show" data-bs-parent="#productsAccordion">
             <div class="accordion-body pt-0">
               <a href="./products.php" class="text-white link-underline link-underline-opacity-0">
-                <li class="sidebar-link mt-2 active-sidebar-link ">
+                <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-house "></i>
                   <p class="mb-0 ">List of Products</p>
                 </li>
@@ -84,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </li>
               </a>
               <a href="./restock.php" class="text-white link-underline link-underline-opacity-0">
-                <li class="sidebar-link mt-2 ">
-                  <i class="fa-solid fa-house"></i>
+                <li class="sidebar-link mt-2 active-sidebar-link">
+                  <i class="fa-solid fa-house "></i>
                   <p class="mb-0 ">Restock Products</p>
                 </li>
               </a>
@@ -129,46 +129,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="w-100">
         <div class="d-flex align-items-center gap-2 ">
           <p class="fs-2 fw-medium m-0  ">Products</p>
-          <p class="fw-6 text-secondary fw-medium m-0 ">List of Products</p>
+          <p class="fw-6 text-secondary fw-medium m-0 ">Restock products</p>
         </div>
-      </div>
-      <div class="w-100 ">
-        <p class="fs-5 fw-medium "></p>
-        <table class="table table-hover">
-          <thead class="text-center">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Product</th>
-              <th scope="col">Price</th>
-              <th scope="col">Stocks</th>
-              <th scope="col">Category</th>
-              <th scope="col">Stall</th>
-              <th scope="col">Last modified</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody id="products-table" class="text-center"></tbody>
-        </table>
-        <nav aria-label="Page navigation example" class="w-100 d-flex align-items-center justify-content-between ">
-          <div>
-            Showing 20 items per page
-          </div>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </div>
   </main>
@@ -177,7 +139,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script type="module" src="./products.js"></script>
 </body>
 
 </html>

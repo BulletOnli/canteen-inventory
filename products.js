@@ -13,8 +13,13 @@ productsData.forEach((product) => {
         <td>${product.category}</td>
         <td>${product.stall}</td>
         <td>${product.lastModified}</td>
-        <td>
-            <a href="#">View more</a>
+        <td class="d-flex align-items-center justify-content-center  gap-2 ">
+          <button class="btn btn-outline-secondary btn-sm">
+          <i class="fa-solid fa-pencil"></i>
+          </button>
+          <button class="btn btn-outline-secondary  btn-sm">
+            <i class="fa-solid fa-trash"></i>
+          </button>
         </td>
     `;
 

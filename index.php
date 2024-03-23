@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <ul class="p-0 overflow-auto  ">
       <a href="./index.php" class="text-white  link-underline link-underline-opacity-0">
-        <li class="sidebar-link active-sidebar-link">
+        <li class="sidebar-link active-sidebar-link  ">
           <i class="fa-solid fa-chart-simple"></i>
           <p class="mb-0 ">Dashboard</p>
         </li>
@@ -44,18 +44,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="mb-0 ">Manage Stalls</p>
           </button>
 
-          <div id="collapseOne" class="accordion-collapse collapse  show" data-bs-parent="#stallsAccordion">
-            <div class="accordion-body">
-              <a href="#" class="text-white link-underline link-underline-opacity-0">
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#stallsAccordion">
+            <div class="accordion-body pt-0">
+              <a href="./stalls.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-store"></i>
                   <p class="mb-0 ">List of Stalls</p>
                 </li>
               </a>
-              <a href="#" class="text-white link-underline link-underline-opacity-0">
+              <a href="./addstall.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-store"></i>
-                  <p class="mb-0 ">Create new Stall</p>
+                  <p class="mb-0 ">Add new Stall</p>
                 </li>
               </a>
             </div>
@@ -69,21 +69,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="mb-0 ">Manage Products</p>
           </button>
 
-          <div id="collapse2" class="accordion-collapse collapse show " data-bs-parent="#productsAccordion">
-            <div class="accordion-body">
+          <div id="collapse2" class="accordion-collapse collapse show" data-bs-parent="#productsAccordion">
+            <div class="accordion-body pt-0">
               <a href="./products.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
-                  <i class="fa-solid fa-house"></i>
+                  <i class="fa-solid fa-house "></i>
                   <p class="mb-0 ">List of Products</p>
                 </li>
               </a>
-              <a href="#" class="text-white link-underline link-underline-opacity-0">
+              <a href="./addproduct.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-house"></i>
                   <p class="mb-0 ">Add Product</p>
                 </li>
               </a>
-              <a href="#" class="text-white link-underline link-underline-opacity-0">
+              <a href="./restock.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-house"></i>
                   <p class="mb-0 ">Restock Products</p>
@@ -93,18 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
       </div>
-      <a href="#" class="text-white link-underline link-underline-opacity-0">
-        <li class="sidebar-link">
-          <i class="fa-solid fa-store"></i>
-          <p class="mb-0 ">N/A</p>
-        </li>
-      </a>
-      <a href="#" class="text-white link-underline link-underline-opacity-0">
-        <li class="sidebar-link">
-          <i class="fa-solid fa-store"></i>
-          <p class="mb-0 ">N/A</p>
-        </li>
-      </a>
     </ul>
   </aside>
 
