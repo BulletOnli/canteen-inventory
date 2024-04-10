@@ -2,7 +2,7 @@
 session_start();
 
 include './isAuthenticated.php';
-
+include './db.php';
 
 ?>
 <!DOCTYPE html>
@@ -206,7 +206,42 @@ include './isAuthenticated.php';
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody id="products-table" class="text-center"></tbody>
+          <tbody id="products-table" class="text-center">
+            <?php
+            $today = date('Y-m-d');
+            $pastThreeDays = date('Y-m-d', strtotime('-1 days', strtotime($today)));
+
+            // Prepare the SQL query to filter and select products
+            $sql = "SELECT * FROM products WHERE last_modified >= ? AND last_modified <= ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $pastThreeDays, $today);  // Bind parameters for start and end date
+
+            // Execute the prepared statement
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Check for results
+            if ($result->num_rows > 0) {
+              // Loop through each row and display data in table cells
+              while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                foreach ($row as $key => $value) {
+                  echo "<td>" . $value . "</td>";
+                }
+                echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
+                echo "<a href='#'>View more</a>";
+                echo "</td>";
+                echo "</tr>";
+              }
+            } else {
+              echo "No products found from the last 3 days.";
+            }
+
+            $stmt->close();
+            $conn->close();
+
+            ?>
+          </tbody>
         </table>
       </div>
     </div>
@@ -217,32 +252,6 @@ include './isAuthenticated.php';
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script type="module" src="./index.js"></script>
-
-  <script type="module">
-    import productsData from "./productsData.js";
-
-    const productsTableEl = document.getElementById("products-table");
-
-
-    productsData.slice(0, 5).forEach((product) => {
-      const newRow = document.createElement("tr");
-
-      newRow.innerHTML = `
-        <th scope="row">${product.id}</th>
-        <td>${product.productName}</td>
-        <td>${product.price}</td>
-        <td>${product.stocks}</td>
-        <td>${product.category}</td>
-        <td>${product.stall}</td>
-        <td>${product.lastModified}</td>
-        <td>
-            <a href="#">View more</a>
-        </td>
-    `;
-
-      productsTableEl.appendChild(newRow);
-    });
-  </script>
 </body>
 
 </html>
