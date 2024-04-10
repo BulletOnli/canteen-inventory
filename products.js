@@ -8,16 +8,16 @@ productsData.forEach((product) => {
   newRow.innerHTML = `
         <th scope="row">${product.id}</th>
         <td>${product.productName}</td>
-        <td>${product.price}</td>
+        <td>P ${product.price}</td>
         <td>${product.stocks}</td>
         <td>${product.category}</td>
         <td>${product.stall}</td>
         <td>${product.lastModified}</td>
         <td class="d-flex align-items-center justify-content-center  gap-2 ">
-          <button class="btn btn-outline-secondary btn-sm">
+          <button data-bs-toggle="modal" data-bs-target="#editProductModal" type="button" class="btn btn-outline-secondary btn-sm">
           <i class="fa-solid fa-pencil"></i>
           </button>
-          <button class="btn btn-outline-secondary  btn-sm">
+          <button data-bs-toggle="modal" data-bs-target="#deleteProductModal" type="button" class="btn btn-outline-secondary btn-sm">
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>

@@ -1,15 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
-  exit();
-}
+include './isAuthenticated.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  session_destroy();
-  header("Location: login.php");
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

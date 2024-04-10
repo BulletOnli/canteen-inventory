@@ -1,14 +1,8 @@
 <?php
+session_start();
+include 'db.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  session_start();
-  $db_server = "localhost";
-  $db_user = "root";
-  $db_pass = "";
-  $db_name = "canteen_management";
-  $conn = "";
-
-  $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
-
   $firstname = $_POST["firstName"];
   $lastname = $_POST["lastName"];
   $username = $_POST["username"];

@@ -1,15 +1,8 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
-  exit();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  session_destroy();
-  header("Location: login.php");
-}
+include './isAuthenticated.php';
+include './db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,7 +140,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody id="products-table" class="text-center"></tbody>
+          <tbody id="products-table" class="text-center">
+            <?php
+            $sql = "SELECT * FROM products";
+            $result = $conn->query($sql);
+
+            // Loop through each row and display data in table cells
+            while ($row = $result->fetch_assoc()) {
+              echo "<tr>";
+              foreach ($row as $key => $value) {
+                echo "<td>" . $value . "</td>";
+              }
+              echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
+              echo "<button data-bs-toggle='modal' data-bs-target='#editProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
+              <i class='fa-solid fa-pencil'></i>
+              </button>";
+              echo "<button data-bs-toggle='modal' data-bs-target='#deleteProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
+              <i class='fa-solid fa-trash'></i>
+              </button>";
+              echo "</td>";
+              echo "</tr>";
+            }
+            ?>
+          </tbody>
         </table>
         <nav aria-label="Page navigation example" class="w-100 d-flex align-items-center justify-content-between ">
           <div>
@@ -173,11 +188,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </main>
 
+  <!-- Edit Product Modal -->
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editProductModal">Edit Product</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Product Modal -->
+  <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteProductModal">Delete Product</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Do you want to delete this product?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger ">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script type="module" src="./products.js"></script>
+  <!-- <script type="module" src="./products.js"></script> -->
 </body>
 
 </html>

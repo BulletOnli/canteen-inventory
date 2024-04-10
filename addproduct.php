@@ -1,15 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
-  exit();
-}
+include './isAuthenticated.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  session_destroy();
-  header("Location: login.php");
-}
+include 'db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,9 +16,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="./index.css" />
   <script src="https://kit.fontawesome.com/effd3867de.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
+  <?php
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $productName = $_POST["product_name"];
+    $price = $_POST["price"];
+    $stocks = $_POST["stocks"];
+    $category = $_POST["category"];
+    $stallId = $_POST["stall"];
+
+    $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `category`, `stall_id`) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sdisi", $productName, $price, $stocks, $category, $stallId);
+
+    if ($stmt->execute()) {
+      echo "
+    <script>
+      swal({
+        title: 'Product Added!',
+        text: 'Thanks for adding!',
+        icon: 'success',
+        button: 'Close!',
+      });
+    </script>
+    ";
+    } else {
+      echo "Error: " . $query . "<br>" . mysqli_error($conn);
+      echo "
+    <script>
+      swal({
+        title: 'An error occured!',
+        text: 'There was an error adding product.',
+        icon: 'error',
+        button: 'OK',
+      });
+    </script>
+    ";
+    }
+
+    $stmt->close();
+  }
+  ?>
   <aside>
     <div class="sidebar-logo-container">
       <img src="./images/gjc logo.png" alt="" />
@@ -132,68 +167,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <p class="fw-6 text-secondary fw-medium m-0 ">Add New Product</p>
         </div>
       </div>
-      <div class="container-fluid mt-4 ">
-        <div class="row column-gap-2">
-          <div class="col-7   p-4 rounded-3 bg-white shadow-sm">
+      <form id="add-product-form" action="addproduct.php" method="POST">
+        <div class="container-fluid mt-4 ">
+          <div class="row column-gap-2">
+            <div class="col-7   p-4 rounded-3 bg-white shadow-sm">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="" class="form-label">Product name</label>
+                  <input required name="product_name" type="text" class="form-control" id="">
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Category</label>
+                  <select name="category" class="form-select" aria-label="Product Category">
+                    <option selected disabled>Choose product category</option>
+                    <option value="beverages">Beverages</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="sandwiches">Sandwiches</option>
+                    <option value="desserts">Desserts</option>
+                    <option value="salads">Salads</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Price</label>
+                  <input required name="price" type="number" class="form-control" id="">
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Stocks available</label>
+                  <input required name="stocks" type="text" class="form-control" id="">
+                </div>
+              </div>
+            </div>
             <div class="col">
-              <div class="mb-3">
-                <label for="" class="form-label">Product name</label>
-                <input type="text" class="form-control" id="">
+              <div class="w-100 h-auto  p-4 rounded-3 bg-white shadow-sm">
+                <div>
+                  <label for="" class="form-label">Stall</label>
+                  <select required name="stall" class="form-select" aria-label="stall name">
+                    <option selected disabled>Choose a stall</option>
+                    <?php
+                    $sql = "SELECT * FROM stall";
+                    $result = $conn->query($sql);
+
+                    if (!$result) {
+                      echo "Error: " . $conn->error;
+                    }
+
+                    // Loop through results and create options dynamically
+                    while ($row = $result->fetch_assoc()) {
+                      $stallOwnerId = $row['stall_owner_id'];
+                      $stall_name = $row['stall_name'];  // Extract stall name from the row
+                      echo "<option value='$stallOwnerId'>$stall_name</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="" class="form-label">Category</label>
-                <select class="form-select" aria-label="Product Category">
-                  <option selected disabled>Choose product category</option>
-                  <option value="beverages">Beverages</option>
-                  <option value="snacks">Snacks</option>
-                  <option value="sandwiches">Sandwiches</option>
-                  <option value="desserts">Desserts</option>
-                  <option value="salads">Salads</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="" class="form-label">Price</label>
-                <input type="number" step="5" class="form-control" id="">
-              </div>
+              <button class="w-100 btn btn-success mt-2">Add Product</button>
             </div>
-            <div class="col">
-              <div class="mb-3">
-                <label for="" class="form-label">Stocks available</label>
-                <input type="text" class="form-control" id="">
-              </div>
-              <div class="mb-3">
-                <label for="" class="form-label">N/A</label>
-                <input type="text" class="form-control" id="">
-              </div>
-              <div class="mb-3">
-                <label for="" class="form-label">N/A</label>
-                <input type="text" class="form-control" id="">
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="w-100 h-auto  p-4 rounded-3 bg-white shadow-sm">
-              <div class="mb-3">
-                <label for="" class="form-label">Stall</label>
-                <input type="text" class="form-control" id="">
-              </div>
-              <div class="mb-3">
-                <label for="" class="form-label">Password</label>
-                <input type="text" class="form-control" id="">
-              </div>
-            </div>
-            <button class="w-100 btn btn-success mt-2">Add Product</button>
           </div>
         </div>
-      </div>
+      </form>
+
     </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script type="module" src="./products.js"></script>
 </body>
 
 </html>
