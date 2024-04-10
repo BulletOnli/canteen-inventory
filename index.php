@@ -120,55 +120,67 @@ include './db.php';
 
     <div class="w-100 d-flex flex-column p-4">
       <div class="container text-center">
-        <div class="row row-gap-lg-5 ">
-          <div class="col">
-            <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
+        <div class="row row-gap-lg-5 gap-3  ">
+          <div class="col p-0">
+            <a href="./products.php" class="text-black   link-underline link-underline-opacity-0 ">
               <div class="dashboard-card">
-                <div class="w-100 d-flex align-items-center gap-2 ">
-                  <i class="fa-solid fa-store fs-1"></i>
-                  <div class="d-flex  flex-column align-items-start ">
-                    <p class="m-0 fw-medium fs-6">Stalls</p>
-                    <p style="font-size: 12px;" class="m-0 text-secondary ">Tap for more details</p>
+                <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
+                  <div class="d-flex align-items-center gap-2 ">
+                    <i class="fa-solid fa-list fs-3"></i>
+                    <div class="d-flex  flex-column align-items-start ">
+                      <p class="m-0 fw-medium ">Total Products</p>
+                      <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
+                    </div>
                   </div>
+                  <p style="color: #416d19" class="mb-0 fs-4 fw-bold">1000</p>
                 </div>
               </div>
             </a>
           </div>
-          <div class="col">
+          <div class="col p-0">
             <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
               <div class="dashboard-card">
-                <div class="w-100 d-flex align-items-center gap-2 ">
-                  <i class="fa-solid fa-store fs-1"></i>
-                  <div class="d-flex  flex-column align-items-start ">
-                    <p class="m-0 fw-medium fs-6">Stalls</p>
-                    <p style="font-size: 12px;" class="m-0 text-secondary ">Tap for more details</p>
+                <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
+                  <div class="d-flex align-items-center gap-2 ">
+                    <i class="fa-solid fa-chart-simple fs-3"></i>
+                    <div class="d-flex  flex-column align-items-start ">
+                      <p class="m-0 fw-medium ">Low stocks</p>
+                      <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
+                    </div>
                   </div>
+                  <p style="color: #416d19" class="mb-0 fs-4 fw-bold">29</p>
                 </div>
               </div>
             </a>
           </div>
-          <div class="col">
+          <div class="col p-0">
             <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
               <div class="dashboard-card">
-                <div class="w-100 d-flex align-items-center gap-2 ">
-                  <i class="fa-solid fa-store fs-1"></i>
-                  <div class="d-flex  flex-column align-items-start ">
-                    <p class="m-0 fw-medium fs-6">Stalls</p>
-                    <p style="font-size: 12px;" class="m-0 text-secondary ">Tap for more details</p>
+                <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
+                  <div class="d-flex align-items-center gap-2 ">
+                    <i class="fa-solid fa-triangle-exclamation fs-3"></i>
+                    <div class="d-flex  flex-column align-items-start ">
+                      <p class="m-0 fw-medium ">Out of Stocks</p>
+                      <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
+                    </div>
                   </div>
+                  <p style="color: #416d19" class="mb-0 fs-4 fw-bold">12</p>
                 </div>
               </div>
             </a>
           </div>
-          <div class="col">
+          <div class="col p-0">
             <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
               <div class="dashboard-card">
-                <div class="w-100 d-flex align-items-center gap-2 ">
-                  <i class="fa-solid fa-store fs-1"></i>
-                  <div class="d-flex  flex-column align-items-start ">
-                    <p class="m-0 fw-medium fs-6">Stalls</p>
-                    <p style="font-size: 12px;" class="m-0 text-secondary ">Tap for more details</p>
+                <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
+                  <div class="d-flex align-items-center gap-2 ">
+                    <i class="fa-solid fa-user fs-3"></i>
+                    <div class="d-flex  flex-column align-items-start ">
+                      <p class="m-0 fw-medium ">Quick Profile</p>
+                      <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
+                    </div>
                   </div>
+                  <!-- <p style="color: #416d19" class="mb-0 fs-4 fw-bold">1000</p> -->
                 </div>
               </div>
             </a>
@@ -180,11 +192,11 @@ include './db.php';
       <!-- GRAPH -->
       <div id="graph-section">
         <div class="graph-container d-flex flex-column justify-content-center align-items-center p-2 rounded-3 shadow-sm  ">
-          <p class="fw-medium my-2 ">Product stocks</p>
+          <p class="fw-medium my-2 ">Sales trend</p>
           <canvas id="myChart-left"></canvas>
         </div>
         <div class="graph-container d-flex flex-column justify-content-center align-items-center p-2 rounded-3  shadow-sm ">
-          <p class="fw-medium my-2 ">Product stocks</p>
+          <p class="fw-medium my-2 ">Inventory levels</p>
           <canvas id="myChart-right"></canvas>
         </div>
       </div>
@@ -192,7 +204,7 @@ include './db.php';
 
       <!-- TABLES -->
       <div class="w-100 ">
-        <p class="fs-6 fw-medium ">Product History</p>
+        <p class=" fw-medium ">Product History</p>
         <table class="table table-hover">
           <thead class="text-center">
             <tr>
@@ -203,16 +215,15 @@ include './db.php';
               <th scope="col">Category</th>
               <th scope="col">Stall</th>
               <th scope="col">Last modified</th>
-              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody id="products-table" class="text-center">
             <?php
             $today = date('Y-m-d');
-            $pastThreeDays = date('Y-m-d', strtotime('-1 days', strtotime($today)));
+            $pastThreeDays = date('Y-m-d', strtotime('-3 days', strtotime($today)));
 
             // Prepare the SQL query to filter and select products
-            $sql = "SELECT * FROM products WHERE last_modified >= ? AND last_modified <= ?";
+            $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id WHERE products.last_modified >= ? AND products.last_modified <= ? ORDER BY products.last_modified DESC LIMIT 5";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $pastThreeDays, $today);  // Bind parameters for start and end date
 
@@ -228,9 +239,6 @@ include './db.php';
                 foreach ($row as $key => $value) {
                   echo "<td>" . $value . "</td>";
                 }
-                echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
-                echo "<a href='#'>View more</a>";
-                echo "</td>";
                 echo "</tr>";
               }
             } else {

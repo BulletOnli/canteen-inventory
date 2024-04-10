@@ -213,9 +213,9 @@ include 'db.php';
 
                     // Loop through results and create options dynamically
                     while ($row = $result->fetch_assoc()) {
-                      $stallOwnerId = $row['stall_owner_id'];
+                      $stallId = $row['id'];
                       $stall_name = $row['stall_name'];  // Extract stall name from the row
-                      echo "<option value='$stallOwnerId'>$stall_name</option>";
+                      echo "<option value='$stallId'>$stall_name</option>";
                     }
                     ?>
                   </select>

@@ -142,7 +142,7 @@ include './db.php';
           </thead>
           <tbody id="products-table" class="text-center">
             <?php
-            $sql = "SELECT * FROM products";
+            $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id";
             $result = $conn->query($sql);
 
             // Loop through each row and display data in table cells
