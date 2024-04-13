@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 include './isAuthenticated.php';
 
@@ -28,9 +28,10 @@ include 'db.php';
     $stocks = $_POST["stocks"];
     $category = $_POST["category"];
     $stallId = $_POST["stall"];
+    $isAvailable = 1;
 
-    $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `category`, `stall_id`) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sdisi", $productName, $price, $stocks, $category, $stallId);
+    $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `category`, `stall_id`, `isAvailable`) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sdisii", $productName, $price, $stocks, $category, $stallId, $isAvailable);
 
     if ($stmt->execute()) {
       echo "
@@ -148,7 +149,7 @@ include 'db.php';
               </button>
             </li>
             <li>
-              <form action="index.php" method="POST">
+              <form action="logout.php" method="POST">
                 <button class="dropdown-item d-flex align-items-center gap-2" type="submit">
                   <i class="fa-solid fa-right-from-bracket"></i>
                   <p class="mb-0">Logout</p>

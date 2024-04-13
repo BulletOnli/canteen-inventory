@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2024 at 10:09 AM
+-- Generation Time: Apr 10, 2024 at 05:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,17 +34,20 @@ CREATE TABLE `products` (
   `stocks` int(11) NOT NULL,
   `category` varchar(255) NOT NULL,
   `stall_id` int(11) NOT NULL,
-  `last_modified` date NOT NULL DEFAULT current_timestamp()
+  `last_modified` date NOT NULL DEFAULT current_timestamp(),
+  `isAvailable` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `product_name`, `price`, `stocks`, `category`, `stall_id`, `last_modified`) VALUES
-(40, 'Galugngong', 213, 12, 'snacks', 16, '2024-04-10'),
-(41, 'Ice cream', 12, 200, 'desserts', 16, '2024-04-09'),
-(49, 'Red horse', 231, 1000, 'beverages', 16, '2024-04-07');
+INSERT INTO `products` (`id`, `product_name`, `price`, `stocks`, `category`, `stall_id`, `last_modified`, `isAvailable`) VALUES
+(53, 'sfsdf', 1231, 12, 'snacks', 1, '2024-04-09', 1),
+(54, 'Yakult', 20, 100, 'beverages', 1, '2024-04-08', 1),
+(55, 'Yakult', 20, 100, 'beverages', 2, '2024-04-09', 1),
+(56, 'Cheese cake', 20, 400, 'snacks', 1, '2024-04-10', 1),
+(57, 'Kanin', 341, 1000, 'desserts', 2, '2024-04-07', 1);
 
 -- --------------------------------------------------------
 
@@ -65,7 +68,8 @@ CREATE TABLE `stall` (
 --
 
 INSERT INTO `stall` (`id`, `stall_name`, `stall_owner_id`, `total_products`, `last_modified`) VALUES
-(1, 'STALL A', 16, 89, '2024-04-02');
+(1, 'STALL A', 16, 89, '2024-04-02'),
+(2, 'Stall B', 16, 1231, '2024-04-10');
 
 -- --------------------------------------------------------
 
@@ -120,13 +124,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `stall`
 --
 ALTER TABLE `stall`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

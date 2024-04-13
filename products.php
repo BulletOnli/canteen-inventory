@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 include './isAuthenticated.php';
 include './db.php';
@@ -106,7 +106,7 @@ include './db.php';
               </button>
             </li>
             <li>
-              <form action="index.php" method="POST">
+              <form action="logout.php" method="POST">
                 <button class="dropdown-item d-flex align-items-center gap-2" type="submit">
                   <i class="fa-solid fa-right-from-bracket"></i>
                   <p class="mb-0">Logout</p>

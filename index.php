@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include './isAuthenticated.php';
 include './db.php';
@@ -106,7 +105,7 @@ include './db.php';
               </button>
             </li>
             <li>
-              <form action="index.php" method="POST">
+              <form action="logout.php" method="POST">
                 <button class="dropdown-item d-flex align-items-center gap-2" type="submit">
                   <i class="fa-solid fa-right-from-bracket"></i>
                   <p class="mb-0 ">Logout</p>
@@ -132,39 +131,39 @@ include './db.php';
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <p style="color: #416d19" class="mb-0 fs-4 fw-bold">1000</p>
+                  <p style="color: #416d19" class="mb-0 fs-3 fw-bold">1000</p>
                 </div>
               </div>
             </a>
           </div>
           <div class="col p-0">
             <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
-              <div class="dashboard-card">
+              <div class="dashboard-card" style="background-color: #ffee99;">
                 <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
-                  <div class="d-flex align-items-center gap-2 ">
-                    <i class="fa-solid fa-chart-simple fs-3"></i>
+                  <div class="d-flex align-items-center gap-2  ">
+                    <i class="fa-solid fa-chart-simple fs-3 text-warning"></i>
                     <div class="d-flex  flex-column align-items-start ">
                       <p class="m-0 fw-medium ">Low stocks</p>
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <p style="color: #416d19" class="mb-0 fs-4 fw-bold">29</p>
+                  <p style="color: #416d19" class="mb-0 fs-3 fw-bold text-warning">29</p>
                 </div>
               </div>
             </a>
           </div>
           <div class="col p-0">
             <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
-              <div class="dashboard-card">
+              <div class="dashboard-card" style="background-color: #ffb3c1;">
                 <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
                   <div class="d-flex align-items-center gap-2 ">
-                    <i class="fa-solid fa-triangle-exclamation fs-3"></i>
+                    <i class="fa-solid fa-triangle-exclamation fs-3 text-danger"></i>
                     <div class="d-flex  flex-column align-items-start ">
                       <p class="m-0 fw-medium ">Out of Stocks</p>
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <p style="color: #416d19" class="mb-0 fs-4 fw-bold">12</p>
+                  <p style="color: #416d19" class="mb-0 fs-3 fw-bold text-danger ">12</p>
                 </div>
               </div>
             </a>
@@ -180,7 +179,7 @@ include './db.php';
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <!-- <p style="color: #416d19" class="mb-0 fs-4 fw-bold">1000</p> -->
+                  <!-- <p style="color: #416d19" class="mb-0 fs-3 fw-bold">1000</p> -->
                 </div>
               </div>
             </a>
