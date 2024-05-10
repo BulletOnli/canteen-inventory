@@ -1,6 +1,12 @@
 <?php
 session_start();
-include 'db.php';
+include './db.php';
+
+if (isset($_SESSION['username'])) {
+  header("Location: index.php");
+  exit();
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $firstname = $_POST["firstName"];
@@ -9,28 +15,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST["password"];
   $confirmPassword = $_POST["confirmPassword"];
 
-  if ($password !== $confirmPassword) {
+  $isAvailable = "SELECT COUNT(*) AS count FROM users WHERE username = '$username'";
+  $result = mysqli_query($conn, $isAvailable);
+
+  if (mysqli_fetch_assoc($result)['count'] > 0) {
+    $_SESSION['registration_error'] = "Username is taken.";
+  } else if ($password !== $confirmPassword) {
     $_SESSION['registration_error'] = "Passwords do not match.";
-    exit();
-  }
-
-  // Hash the password
-  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-  // Use prepared statements to prevent SQL injection
-  $query = "INSERT INTO users (firstname, lastname, username, password) VALUES (?, ?, ?, ?)";
-  $stmt = mysqli_prepare($conn, $query);
-  mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $username, $hashedPassword);
-  mysqli_stmt_execute($stmt);
-
-  if (mysqli_stmt_errno($stmt)) {
-    $error = mysqli_stmt_error($stmt);
-    $_SESSION['registration_error'] = $error;
   } else {
-    mysqli_stmt_close($stmt);
-    mysqli_close($conn);
-    header("Location: login.php");
-    exit();
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // Use prepared statements to prevent SQL injection
+    $query = "INSERT INTO users (firstname, lastname, username, password) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $username, $hashedPassword);
+    mysqli_stmt_execute($stmt);
+
+    if (mysqli_stmt_errno($stmt)) {
+      $error = mysqli_stmt_error($stmt);
+      $_SESSION['registration_error'] = $error;
+    } else {
+      mysqli_stmt_close($stmt);
+      mysqli_close($conn);
+      header("Location: login.php");
+      exit();
+    }
   }
 }
 ?>

@@ -131,7 +131,23 @@ include './db.php';
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <p style="color: #416d19" class="mb-0 fs-3 fw-bold">1000</p>
+                  <?php
+                  $productCount = "SELECT COUNT(*) AS count FROM products WHERE stall_id = 1";
+                  $result = mysqli_query($conn, $productCount);
+                  if ($result) {
+                    // Fetch the count from the result
+                    $row = mysqli_fetch_assoc($result);
+                    $count = $row['count'];
+
+                    // Display the count
+                    echo "<p style='color: #416d19' class='mb-0 fs-3 fw-bold'>$count</p>";
+
+                    // Free the result set
+                    mysqli_free_result($result);
+                  } else {
+                    echo `<p style="color: #416d19" class="mb-0 fs-3 fw-bold">Error</p>`;
+                  }
+                  ?>
                 </div>
               </div>
             </a>

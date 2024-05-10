@@ -30,35 +30,56 @@ include 'db.php';
     $stallId = $_POST["stall"];
     $isAvailable = 1;
 
-    $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `category`, `stall_id`, `isAvailable`) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sdisii", $productName, $price, $stocks, $category, $stallId, $isAvailable);
+    $query = "SELECT COUNT(*) AS count FROM products WHERE product_name = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $productName);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $count = $row['count'];
 
-    if ($stmt->execute()) {
+    if ($count > 0) {
       echo "
-    <script>
-      swal({
-        title: 'Product Added!',
-        text: 'Thanks for adding!',
-        icon: 'success',
-        button: 'Close!',
-      });
-    </script>
-    ";
+      <script>
+        swal({
+          title: 'Cannot add this product!',
+          text: 'This product is already available',
+          icon: 'error',
+          button: 'OK',
+        });
+      </script>
+      ";
     } else {
-      echo "Error: " . $query . "<br>" . mysqli_error($conn);
-      echo "
-    <script>
-      swal({
-        title: 'An error occured!',
-        text: 'There was an error adding product.',
-        icon: 'error',
-        button: 'OK',
-      });
-    </script>
-    ";
-    }
+      $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `category`, `stall_id`, `isAvailable`) VALUES (?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("sdisii", $productName, $price, $stocks, $category, $stallId, $isAvailable);
 
-    $stmt->close();
+      if ($stmt->execute()) {
+        echo "
+      <script>
+        swal({
+          title: 'Product Added!',
+          text: 'Thanks for adding!',
+          icon: 'success',
+          button: 'Close!',
+        });
+      </script>
+      ";
+      } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        echo "
+      <script>
+        swal({
+          title: 'An error occured!',
+          text: 'There was an error adding product.',
+          icon: 'error',
+          button: 'OK',
+        });
+      </script>
+      ";
+      }
+
+      $stmt->close();
+    }
   }
   ?>
   <aside>

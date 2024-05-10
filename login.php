@@ -2,6 +2,12 @@
 session_start();
 include './db.php';
 
+if (isset($_SESSION['username'])) {
+  header("Location: index.php");
+  exit();
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"];
   $password = $_POST["password"];
@@ -31,6 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Verify the password
       if (password_verify($password, $hashedPasswordFromDB)) {
         $_SESSION['username'] = $username;
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['firstname'] = $row['firstname'];
+        $_SESSION['lastname'] = $row['lastname'];
         mysqli_close($conn);
         header("Location: index.php");
         exit();
