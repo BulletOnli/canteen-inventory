@@ -89,7 +89,7 @@ include './db.php';
     </ul>
   </aside>
 
-  <main style="width: 100%;" class="min-vh-100">
+  <main style="width: 80%;" class="min-vh-100">
     <nav style="background-color: #416d19; border-bottom: 4px solid #ee9c1e;" class="sticky-top w-100 p-3 d-flex align-items-center justify-content-between  text-white ">
       <div></div>
       <div>
@@ -153,7 +153,7 @@ include './db.php';
             </a>
           </div>
           <div class="col p-0">
-            <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
+            <a href="./lowstocks.php" class="text-black   link-underline link-underline-opacity-0 ">
               <div class="dashboard-card" style="background-color: #ffee99;">
                 <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
                   <div class="d-flex align-items-center gap-2  ">
@@ -164,7 +164,7 @@ include './db.php';
                     </div>
                   </div>
                   <?php
-                  $productCount = "SELECT COUNT(*) AS count FROM products WHERE stocks <= 0.1 * totalStocks";
+                  $productCount = "SELECT COUNT(*) AS count FROM products WHERE stocks > 0 AND stocks <= 0.1 * totalStocks";
                   $result = mysqli_query($conn, $productCount);
                   if ($result) {
                     // Fetch the count from the result
@@ -185,7 +185,7 @@ include './db.php';
             </a>
           </div>
           <div class="col p-0">
-            <a href="#" class="text-black   link-underline link-underline-opacity-0 ">
+            <a href="./outOfStocks.php" class="text-black   link-underline link-underline-opacity-0 ">
               <div class="dashboard-card" style="background-color: #ffb3c1;">
                 <div class="w-100 d-flex align-items-center justify-content-between gap-2 ">
                   <div class="d-flex align-items-center gap-2 ">
@@ -239,11 +239,11 @@ include './db.php';
       <!-- GRAPH -->
       <div id="graph-section">
         <div class="graph-container d-flex flex-column justify-content-center align-items-center p-2 rounded-3 shadow-sm  ">
-          <p class="fw-medium my-2 ">Sales trend</p>
+          <p class="fw-medium my-2 ">Sales trend (Not working)</p>
           <canvas id="myChart-left"></canvas>
         </div>
         <div class="graph-container d-flex flex-column justify-content-center align-items-center p-2 rounded-3  shadow-sm ">
-          <p class="fw-medium my-2 ">Inventory levels</p>
+          <p class="fw-medium my-2 ">Inventory levels (Not working)</p>
           <canvas id="myChart-right"></canvas>
         </div>
       </div>
