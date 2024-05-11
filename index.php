@@ -25,8 +25,8 @@ include './db.php';
     </div>
     <ul class="p-0 overflow-auto  ">
       <a href="./index.php" class="text-white  link-underline link-underline-opacity-0">
-        <li class="sidebar-link active-sidebar-link  ">
-          <i class="fa-solid fa-chart-simple"></i>
+        <li class="sidebar-link active-sidebar-link">
+          <i class="fa-solid fa-chart-simple "></i>
           <p class="mb-0 ">Dashboard</p>
         </li>
       </a>
@@ -70,6 +70,18 @@ include './db.php';
                   <p class="mb-0 ">List of Products</p>
                 </li>
               </a>
+              <a href="./lowstocks.php" class="text-white link-underline link-underline-opacity-0">
+                <li class="sidebar-link mt-2 ">
+                  <i class="fa-solid fa-house "></i>
+                  <p class="mb-0 ">Low Stock Products</p>
+                </li>
+              </a>
+              <a href="./outOfStocks.php" class="text-white link-underline link-underline-opacity-0">
+                <li class="sidebar-link mt-2 ">
+                  <i class="fa-solid fa-house "></i>
+                  <p class="mb-0 ">Out of Stock Products</p>
+                </li>
+              </a>
               <a href="./addproduct.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-house"></i>
@@ -78,7 +90,7 @@ include './db.php';
               </a>
               <a href="./restock.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
-                  <i class="fa-solid fa-house"></i>
+                  <i class="fa-solid fa-house "></i>
                   <p class="mb-0 ">Restock Products</p>
                 </li>
               </a>

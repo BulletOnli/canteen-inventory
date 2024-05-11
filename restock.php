@@ -71,6 +71,18 @@ include './isAuthenticated.php';
                   <p class="mb-0 ">List of Products</p>
                 </li>
               </a>
+              <a href="./lowstocks.php" class="text-white link-underline link-underline-opacity-0">
+                <li class="sidebar-link mt-2 ">
+                  <i class="fa-solid fa-house "></i>
+                  <p class="mb-0 ">Low Stock Products</p>
+                </li>
+              </a>
+              <a href="./outOfStocks.php" class="text-white link-underline link-underline-opacity-0">
+                <li class="sidebar-link mt-2 ">
+                  <i class="fa-solid fa-house "></i>
+                  <p class="mb-0 ">Out of Stock Products</p>
+                </li>
+              </a>
               <a href="./addproduct.php" class="text-white link-underline link-underline-opacity-0">
                 <li class="sidebar-link mt-2 ">
                   <i class="fa-solid fa-house"></i>
@@ -124,6 +136,9 @@ include './isAuthenticated.php';
         <div class="d-flex align-items-center gap-2 ">
           <p class="fs-2 fw-medium m-0  ">Products</p>
           <p class="fw-6 text-secondary fw-medium m-0 ">Restock products</p>
+        </div>
+        <div class="d-flex ">
+
         </div>
       </div>
     </div>
