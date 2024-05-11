@@ -2,6 +2,7 @@
 
 
 include './isAuthenticated.php';
+include './db.php';
 
 
 ?>
@@ -19,6 +20,51 @@ include './isAuthenticated.php';
 </head>
 
 <body>
+  <?php
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $productId = $_POST["productId"];
+    $newStockLevel = $_POST["stocks"];
+
+    $checkStmt = $conn->prepare("SELECT stocks FROM products WHERE id = ?");
+    $checkStmt->bind_param("i", $productId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if ($checkResult->num_rows === 0) {
+      echo "
+      <script>
+        window.alert('Product not found. Please check the product ID.');
+      </script>
+    ";
+      $checkStmt->close();
+    } else {
+      $checkRow = $checkResult->fetch_assoc();
+      $currentStock = (int) $checkRow['stocks'];
+      $updatedStock = $currentStock + $newStockLevel;
+      $stmt = $conn->prepare("UPDATE products SET stocks = ? WHERE id = ?");
+      $stmt->bind_param("di", $updatedStock, $productId);
+
+      if ($stmt->execute()) {
+        echo "
+      <script>
+        window.alert('Restock success!');
+      </script>
+    ";
+      } else {
+        $error = mysqli_error($conn);
+        echo "Error: " . $error;
+        echo "
+      <script>
+        window.alert('$error');
+      </script>
+    ";
+      }
+
+      $stmt->close();
+    }
+  }
+  ?>
+
   <aside>
     <div class="sidebar-logo-container">
       <img src="./images/gjc logo.png" alt="" />
@@ -137,9 +183,51 @@ include './isAuthenticated.php';
           <p class="fs-2 fw-medium m-0  ">Products</p>
           <p class="fw-6 text-secondary fw-medium m-0 ">Restock products</p>
         </div>
-        <div class="d-flex ">
+        <form id="restock-product-form" action="restock.php" method="POST">
+          <div class="container-fluid mt-4 ">
+            <div class="row column-gap-2">
+              <div class="col-7   p-4 rounded-3 bg-white shadow-sm">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="" class="form-label">Product ID</label>
+                    <input required name="productId" type="text" class="form-control" id="">
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Stocks count</label>
+                    <input required name="stocks" type="number" class="form-control" id="">
+                  </div>
+                  <button class="w-100 btn btn-success mt-2">Restock Product</button>
+                </div>
+              </div>
+              <!-- <div class="col">
+                <div class="w-100 h-auto  p-4 rounded-3 bg-white shadow-sm">
+                  <div>
+                    <label for="" class="form-label">Stall</label>
+                    <select required name="stall" class="form-select" aria-label="stall name">
+                      <option selected disabled>Choose a stall</option>
+                      <?php
+                      $sql = "SELECT * FROM stall";
+                      $result = $conn->query($sql);
 
-        </div>
+                      if (!$result) {
+                        echo "Error: " . $conn->error;
+                      }
+
+                      // Loop through results and create options dynamically
+                      while ($row = $result->fetch_assoc()) {
+                        $stallId = $row['id'];
+                        $stall_name = $row['stall_name'];  // Extract stall name from the row
+                        echo "<option value='$stallId'>$stall_name</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <button class="w-100 btn btn-success mt-2">Add Product</button>
+              </div> -->
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </main>

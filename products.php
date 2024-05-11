@@ -146,6 +146,7 @@ include './db.php';
               <th scope="col">Product</th>
               <th scope="col">Price</th>
               <th scope="col">Stocks</th>
+              <th scope="col">Total Stocks</th>
               <th scope="col">Category</th>
               <th scope="col">Stall</th>
               <th scope="col">Last modified</th>
@@ -154,7 +155,7 @@ include './db.php';
           </thead>
           <tbody id="products-table" class="text-center">
             <?php
-            $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id";
+            $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.totalStocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id";
             $result = $conn->query($sql);
 
             // Loop through each row and display data in table cells
