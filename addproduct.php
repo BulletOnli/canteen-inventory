@@ -231,8 +231,9 @@ include 'db.php';
                   <input required name="stocks" type="text" class="form-control" id="">
                 </div>
               </div>
+              <button class="w-100 btn btn-success mt-2">Add Product</button>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <div class="w-100 h-auto  p-4 rounded-3 bg-white shadow-sm">
                 <div>
                   <label for="" class="form-label">Stall</label>
@@ -257,7 +258,7 @@ include 'db.php';
                 </div>
               </div>
               <button class="w-100 btn btn-success mt-2">Add Product</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </form>
