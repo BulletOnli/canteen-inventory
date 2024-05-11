@@ -50,8 +50,9 @@ include 'db.php';
       </script>
       ";
     } else {
-      $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `category`, `stall_id`, `isAvailable`) VALUES (?, ?, ?, ?, ?, ?)");
-      $stmt->bind_param("sdisii", $productName, $price, $stocks, $category, $stallId, $isAvailable);
+      $stmt = $conn->prepare("INSERT INTO `products` (`product_name`, `price`, `stocks`, `totalStocks`, `category`, `stall_id`, `isAvailable`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("sdissis", $productName, $price, $stocks, $stocks, $category, $stallId, $isAvailable);
+
 
       if ($stmt->execute()) {
         echo "

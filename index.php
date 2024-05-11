@@ -89,7 +89,7 @@ include './db.php';
     </ul>
   </aside>
 
-  <main style="width: 80%;" class="min-vh-100">
+  <main style="width: 100%;" class="min-vh-100">
     <nav style="background-color: #416d19; border-bottom: 4px solid #ee9c1e;" class="sticky-top w-100 p-3 d-flex align-items-center justify-content-between  text-white ">
       <div></div>
       <div>
@@ -132,7 +132,7 @@ include './db.php';
                     </div>
                   </div>
                   <?php
-                  $productCount = "SELECT COUNT(*) AS count FROM products WHERE stall_id = 1";
+                  $productCount = "SELECT COUNT(*) AS count FROM products";
                   $result = mysqli_query($conn, $productCount);
                   if ($result) {
                     // Fetch the count from the result
@@ -163,7 +163,23 @@ include './db.php';
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <p style="color: #416d19" class="mb-0 fs-3 fw-bold text-warning">29</p>
+                  <?php
+                  $productCount = "SELECT COUNT(*) AS count FROM products WHERE stocks <= 0.1 * totalStocks";
+                  $result = mysqli_query($conn, $productCount);
+                  if ($result) {
+                    // Fetch the count from the result
+                    $row = mysqli_fetch_assoc($result);
+                    $count = $row['count'];
+
+                    // Display the count
+                    echo "<p style='color: #416d19' class='mb-0 fs-3 fw-bold text-warning'>$count</p>";
+
+                    // Free the result set
+                    mysqli_free_result($result);
+                  } else {
+                    echo `<p style="color: #416d19" class="mb-0 fs-3 fw-bold text-warning">Error</p>`;
+                  }
+                  ?>
                 </div>
               </div>
             </a>
@@ -179,7 +195,23 @@ include './db.php';
                       <p style="font-size: 10px;" class="m-0 text-secondary ">Tap for more details</p>
                     </div>
                   </div>
-                  <p style="color: #416d19" class="mb-0 fs-3 fw-bold text-danger ">12</p>
+                  <?php
+                  $productCount = "SELECT COUNT(*) AS count FROM products where stocks = 0";
+                  $result = mysqli_query($conn, $productCount);
+                  if ($result) {
+                    // Fetch the count from the result
+                    $row = mysqli_fetch_assoc($result);
+                    $count = $row['count'];
+
+                    // Display the count
+                    echo "<p style='color: #416d19' class='mb-0 fs-3 fw-bold text-danger'>$count</p>";
+
+                    // Free the result set
+                    mysqli_free_result($result);
+                  } else {
+                    echo `<p style="color: #416d19" class="mb-0 fs-3 fw-bold text-danger">Error</p>`;
+                  }
+                  ?>
                 </div>
               </div>
             </a>
@@ -227,6 +259,7 @@ include './db.php';
               <th scope="col">Product</th>
               <th scope="col">Price</th>
               <th scope="col">Stocks</th>
+              <th scope="col">Total Stocks</th>
               <th scope="col">Category</th>
               <th scope="col">Stall</th>
               <th scope="col">Last modified</th>
@@ -238,7 +271,7 @@ include './db.php';
             $pastThreeDays = date('Y-m-d', strtotime('-3 days', strtotime($today)));
 
             // Prepare the SQL query to filter and select products
-            $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id WHERE products.last_modified >= ? AND products.last_modified <= ? ORDER BY products.last_modified DESC LIMIT 5";
+            $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.totalStocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id WHERE products.last_modified >= ? AND products.last_modified <= ? ORDER BY products.last_modified DESC LIMIT 5";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $pastThreeDays, $today);  // Bind parameters for start and end date
 
@@ -250,7 +283,7 @@ include './db.php';
             if ($result->num_rows > 0) {
               // Loop through each row and display data in table cells
               while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
+                echo "<tr id='table-row'>";
                 foreach ($row as $key => $value) {
                   echo "<td>" . $value . "</td>";
                 }

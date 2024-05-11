@@ -147,16 +147,20 @@ include './db.php';
 
             // Loop through each row and display data in table cells
             while ($row = $result->fetch_assoc()) {
+              $product_id = $row['id'];
+
+
+
               echo "<tr>";
               foreach ($row as $key => $value) {
                 echo "<td>" . $value . "</td>";
               }
               echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
-              echo "<button data-bs-toggle='modal' data-bs-target='#editProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
+              echo "<button  data-bs-toggle='modal' data-bs-target='#editProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
               <i class='fa-solid fa-pencil'></i>
               </button>";
-              echo "<button data-bs-toggle='modal' data-bs-target='#deleteProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
-              <i class='fa-solid fa-trash'></i>
+              echo "<button data-productId='$product_id' data-bs-toggle='modal' data-bs-target='#deleteProductModal' type='button' class='btn btn-outline-secondary btn-sm delete-product'>
+              <i class='fa-solid fa-trash' data-productId='$product_id'></i>
               </button>";
               echo "</td>";
               echo "</tr>";
@@ -220,7 +224,7 @@ include './db.php';
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger ">Delete</button>
+          <button type="button" class="btn btn-danger confirm-btn">Delete</button>
         </div>
       </div>
     </div>
@@ -230,7 +234,49 @@ include './db.php';
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- <script type="module" src="./products.js"></script> -->
+  <script>
+    const deleteButtons = document.querySelectorAll('.delete-product');
+    const confirmButtons = document.querySelectorAll(".confirm-btn")
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+
+        confirmButtons.forEach(confirmBtn => {
+          confirmBtn.onclick = () => {
+
+            const productId = event.target.dataset.productid;
+
+            fetch('/auth/deleteProduct.php', {
+                method: 'POST',
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  productId
+                }),
+              })
+              .then(response => response.json())
+              .then(data => {
+                console.log(data);
+                if (data.success) {
+                  // Remove the deleted product row from the table
+                  // event.target.parentElement.parentElement.remove();
+
+                  event.target.closest('tr').remove();
+                } else {
+                  alert('Deletion failed! Error: ' + data.error);
+                }
+              })
+              .catch(error => {
+                console.error('Error deleting product:', error);
+                alert('An error occurred. Please try again.');
+              });
+          }
+        })
+
+      });
+    });
+  </script>
 </body>
 
 </html>

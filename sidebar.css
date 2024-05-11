@@ -95,14 +95,12 @@ aside ul {
   color: white;
 }
 
-.accordion-collapse {
-  /* background-color: red; */
-}
-
 .accordion-button::after {
   color: white;
 }
 
-/* .active-sidebar-link :hover {
-  background-color: rgb(55, 121, 37);
-} */
+@media only screen and (max-width: 1000px) {
+  aside {
+    display: none;
+  }
+}
