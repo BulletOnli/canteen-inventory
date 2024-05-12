@@ -5,6 +5,10 @@ include './isAuthenticated.php';
 include './db.php';
 
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $productId = $_POST["productId"];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,51 +24,6 @@ include './db.php';
 </head>
 
 <body>
-  <?php
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $productId = $_POST["productId"];
-    $newStockLevel = $_POST["stocks"];
-
-    $checkStmt = $conn->prepare("SELECT stocks FROM products WHERE id = ?");
-    $checkStmt->bind_param("i", $productId);
-    $checkStmt->execute();
-    $checkResult = $checkStmt->get_result();
-
-    if ($checkResult->num_rows === 0) {
-      echo "
-      <script>
-        window.alert('Product not found. Please check the product ID.');
-      </script>
-    ";
-      $checkStmt->close();
-    } else {
-      $checkRow = $checkResult->fetch_assoc();
-      $currentStock = (int) $checkRow['stocks'];
-      $updatedStock = $currentStock + $newStockLevel;
-      $stmt = $conn->prepare("UPDATE products SET stocks = ? WHERE id = ?");
-      $stmt->bind_param("di", $updatedStock, $productId);
-
-      if ($stmt->execute()) {
-        echo "
-      <script>
-        window.alert('Restock success!');
-      </script>
-    ";
-      } else {
-        $error = mysqli_error($conn);
-        echo "Error: " . $error;
-        echo "
-      <script>
-        window.alert('$error');
-      </script>
-    ";
-      }
-
-      $stmt->close();
-    }
-  }
-  ?>
-
   <aside>
     <div class="sidebar-logo-container">
       <img src="./images/gjc logo.png" alt="" />
@@ -183,14 +142,14 @@ include './db.php';
           <p class="fs-2 fw-medium m-0  ">Products</p>
           <p class="fw-6 text-secondary fw-medium m-0 ">Restock products</p>
         </div>
-        <form id="restock-product-form" action="restock.php" method="POST">
+        <form id="restock-product-form" action="restock-product.php" method="POST">
           <div class="container-fluid mt-4 ">
             <div class="row column-gap-2">
               <div class="col-7   p-4 rounded-3 bg-white shadow-sm">
                 <div class="col">
                   <div class="mb-3">
                     <label for="" class="form-label">Product ID</label>
-                    <input required name="productId" type="text" class="form-control" id="">
+                    <input required name="productId" value="<?php echo $productId ?>" type="text" class="form-control" id="">
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Stocks count</label>

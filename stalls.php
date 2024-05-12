@@ -102,12 +102,7 @@ if ($result->num_rows > 0) {
                   <p class="mb-0 ">Add Product</p>
                 </li>
               </a>
-              <a href="./restock.php" class="text-white link-underline link-underline-opacity-0">
-                <li class="sidebar-link mt-2 ">
-                  <i class="fa-solid fa-house "></i>
-                  <p class="mb-0 ">Restock Products</p>
-                </li>
-              </a>
+
             </div>
           </div>
         </div>
