@@ -55,16 +55,37 @@ include 'db.php';
 
 
       if ($stmt->execute()) {
-        echo "
-      <script>
-        swal({
-          title: 'Product Added!',
-          text: 'Thanks for adding!',
-          icon: 'success',
-          button: 'Close!',
-        });
-      </script>
-      ";
+        // Update stall total products
+        $updateStallQuery = "UPDATE stall SET total_products = total_products + 1 WHERE id = ?";
+        $updateStmt = $conn->prepare($updateStallQuery);
+        $updateStmt->bind_param("i", $stallId);
+
+        if ($updateStmt->execute()) {
+          echo "
+            <script>
+              swal({
+                title: 'Product Added!',
+                text: 'Thanks for adding!',
+                icon: 'success',
+                button: 'Close!',
+              });
+            </script>
+          ";
+        } else {
+          echo "Error updating stall total products: " . $updateStmt->error;
+          echo "
+            <script>
+              swal({
+                title: 'An error occured!',
+                text: 'There was an error adding product.',
+                icon: 'error',
+                button: 'OK',
+              });
+            </script>
+          ";
+        }
+
+        $updateStmt->close();
       } else {
         echo "Error: " . $query . "<br>" . mysqli_error($conn);
         echo "
@@ -231,14 +252,14 @@ include 'db.php';
                   <input required name="stocks" type="text" class="form-control" id="">
                 </div>
               </div>
-              <button class="w-100 btn btn-success mt-2">Add Product</button>
+              <!-- <button class="w-100 btn btn-success mt-2">Add Product</button> -->
             </div>
-            <!-- <div class="col">
+            <div class="col">
               <div class="w-100 h-auto  p-4 rounded-3 bg-white shadow-sm">
                 <div>
                   <label for="" class="form-label">Stall</label>
                   <select required name="stall" class="form-select" aria-label="stall name">
-                    <option selected disabled>Choose a stall</option>
+                    <option disabled>Choose a stall</option>
                     <?php
                     $sql = "SELECT * FROM stall";
                     $result = $conn->query($sql);
@@ -258,7 +279,7 @@ include 'db.php';
                 </div>
               </div>
               <button class="w-100 btn btn-success mt-2">Add Product</button>
-            </div> -->
+            </div>
           </div>
         </div>
       </form>

@@ -2,7 +2,19 @@
 
 
 include './isAuthenticated.php';
+include './db.php';
 
+$sql = "SELECT * FROM stall";
+
+$result = $conn->query($sql);
+
+$stalls = [];
+
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $stalls[] = $row;
+  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -14,6 +26,7 @@ include './isAuthenticated.php';
   <title>List of Stalls | Canteen Inventory</title>
 
   <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="./stalls.css">
   <script src="https://kit.fontawesome.com/effd3867de.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 </head>
@@ -136,6 +149,47 @@ include './isAuthenticated.php';
         <div class="d-flex align-items-center gap-2 ">
           <p class="fs-2 fw-medium m-0  ">Stalls</p>
           <p class="fw-6 text-secondary fw-medium m-0 ">List of Stalls</p>
+        </div>
+
+        <div class="container text-center mt-4 ">
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+            <?php foreach ($stalls as $stall) : ?>
+              <div class="col">
+                <div class="w-100 bg-white shadow-sm rounded-2 d-flex flex-column align-items-center">
+                  <div class="w-100 d-flex align-items-center justify-content-center border-bottom border-dark-subtle p-2 gap-2">
+                    <i class="fa-solid fa-house"></i>
+                    <p class="m-0 fw-medium"><?php echo $stall['stall_name']; ?></p>
+                  </div>
+
+                  <div class="px-2 py-4 d-flex flex-column align-items-center">
+                    <p style="color: #416d19;" class="fs-1 fw-bolder m-0"><?php echo $stall['total_products']; ?></p>
+                    <p class="m-0 fs-5 fw-medium">Total Products</p>
+                  </div>
+
+                  <div class="container py-2 border-top border-dark-subtle">
+                    <div class="row">
+                      <div class="col">
+                        <form action='edit-stall.php' method='post'>
+                          <input type='hidden' name='stall_id' value='<?php echo $stall['id']; ?>'>
+                          <button type='submit' class='w-100 btn btn-sm btn-light '>
+                            <i class='fa-solid fa-pencil'></i> Edit
+                          </button>
+                        </form>
+                      </div>
+                      <div class="col">
+                        <form action='delete-stall.php' method='post' onsubmit="return confirm('Are you sure you want to delete this stall? This will also delete all associated products.')">
+                          <input type='hidden' name='stall_id' value='<?php echo $stall['id']; ?>'> <button disabled type='submit' class='w-100 btn btn-sm btn-danger'>
+                            <i class='fa-solid fa-trash'></i> Delete
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
         </div>
       </div>
     </div>

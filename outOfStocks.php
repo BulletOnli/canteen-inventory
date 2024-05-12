@@ -158,7 +158,6 @@ include './db.php';
             $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.totalStocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id WHERE stocks = 0";
             $result = $conn->query($sql);
 
-            // Loop through each row and display data in table cells
             while ($row = $result->fetch_assoc()) {
               $product_id = $row['id'];
 
@@ -166,14 +165,25 @@ include './db.php';
               foreach ($row as $key => $value) {
                 echo "<td>" . $value . "</td>";
               }
+
+              // Edit Button with hidden form
               echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
-              echo "<button  data-bs-toggle='modal' data-bs-target='#editProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
-              <i class='fa-solid fa-pencil'></i>
-              </button>";
-              echo "<button data-productId='$product_id' data-bs-toggle='modal' data-bs-target='#deleteProductModal' type='button' class='btn btn-outline-secondary btn-sm delete-product'>
-              <i class='fa-solid fa-trash' data-productId='$product_id'></i>
-              </button>";
+              echo "<form action='edit-product.php' method='post'>";
+              echo "<input type='hidden' name='product_id' value='$product_id'>";
+              echo "<button type='submit' class='btn btn-outline-secondary btn-sm'>
+                  <i class='fa-solid fa-pencil'></i> Edit
+                </button>";
+              echo "</form>";
+
+              // Delete Button with hidden form
+              echo "<form action='deleteProduct.php' method='post' onsubmit='return confirm(\"Are you sure you want to delete this product?\")'>";
+              echo "<input type='hidden' name='productId' value='$product_id'>";
+              echo "<button type='submit' class='btn btn-outline-secondary btn-sm'>
+                  <i class='fa-solid fa-trash'></i> Delete
+                </button>";
+              echo "</form>";
               echo "</td>";
+
               echo "</tr>";
             }
             ?>

@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Verify the password
       if (password_verify($password, $hashedPasswordFromDB)) {
         $_SESSION['username'] = $username;
-        $_SESSION['id'] = $row['id'];
+        $_SESSION['userId'] = $row['id'];
         $_SESSION['firstname'] = $row['firstname'];
         $_SESSION['lastname'] = $row['lastname'];
         mysqli_close($conn);

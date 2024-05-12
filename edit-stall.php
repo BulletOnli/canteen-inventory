@@ -4,6 +4,25 @@
 include './isAuthenticated.php';
 
 include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $stallId = $_POST['stall_id'];
+
+  if (!empty($stallId)) {
+    $sql = "SELECT * FROM stall WHERE id = $stallId";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows === 1) {
+      $stall = $result->fetch_assoc(); // Store retrieved stall information in $stall
+      $stallName = $stall['stall_name'];
+    } else {
+      // Handle case where stall ID is not found (optional: redirect or error message)
+    }
+  } else {
+    // Handle case where stall ID is missing (optional: redirect or error message)
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,67 +40,6 @@ include 'db.php';
 </head>
 
 <body>
-  <?php
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $stallName = $_POST["stall_name"];
-    $stallOwnerId = $_POST["stall_owner_id"];
-    $totalProducts = 0;
-
-    // Check for existing stall name before insert
-    $checkQuery = "SELECT COUNT(*) AS count FROM `stall` WHERE `stall_name` = ?";
-    $checkStmt = $conn->prepare($checkQuery);
-    $checkStmt->bind_param("s", $stallName);
-    $checkStmt->execute();
-    $checkResult = $checkStmt->get_result();
-    $checkRow = $checkResult->fetch_assoc();
-    $existingCount = $checkRow['count'];
-
-    $checkStmt->close(); // Close the check statement
-
-    if ($existingCount > 0) {
-      echo "
-      <script>
-        swal({
-          title: 'Stall Already Exists!',
-          text: 'The stall name is already taken.',
-          icon: 'error',
-          button: 'OK',
-        });
-      </script> ";
-    } else {
-      // Insert stall data if name is unique
-      $stmt = $conn->prepare("INSERT INTO `stall` (`stall_name`, `stall_owner_id`, `total_products`) VALUES (?, ?, ?)");
-      $stmt->bind_param("sii", $stallName, $stallOwnerId, $totalProducts);
-
-      if ($stmt->execute()) {
-        echo "
-        <script>
-          swal({
-            title: 'Stall Added!',
-            text: 'The stall has been successfully added.',
-            icon: 'success',
-            button: 'Close!',
-          });
-        </script>
-      ";
-      } else {
-        echo "Error: " . $checkQuery . "<br>" . mysqli_error($conn);
-        echo "
-        <script>
-          swal({
-            title: 'An error occured!',
-            text: 'There was an error adding the stall.',
-            icon: 'error',
-            button: 'OK',
-        });
-      </script>
-      ";
-      }
-
-      $stmt->close();
-    }
-  }
-  ?>
   <aside>
     <div class="sidebar-logo-container">
       <img src="./images/gjc logo.png" alt="" />
@@ -198,29 +156,21 @@ include 'db.php';
       <div class="w-100">
         <div class="d-flex align-items-center gap-2 ">
           <p class="fs-2 fw-medium m-0  ">Stalls</p>
-          <p class="fw-6 text-secondary fw-medium m-0 ">Add New Stall</p>
+          <p class="fw-6 text-secondary fw-medium m-0 ">Edit Stall Details</p>
         </div>
       </div>
-      <form id="add-product-form" action="addstall.php" method="POST">
-        <input type="hidden" name="stall_owner_id" value="<?php $_SESSION['userId'] ?>">
+      <form id="update-stall-form" action="update-stall.php" method="POST">
+        <input type="hidden" name="stall_id" value='<?php echo $stallId; ?>'>
         <div class="container-fluid mt-4 ">
           <div class="row column-gap-2">
             <div class="col-7   p-4 rounded-3 bg-white shadow-sm">
               <div class="col">
                 <div class="mb-3">
                   <label for="" class="form-label">Stall name</label>
-                  <input required name="stall_name" type="text" class="form-control" id="">
+                  <input required name="stall_name" type="text" class="form-control" id="stall_name" value="<?php echo $stallName ?>" required>
                 </div>
-                <!-- <div class="mb-3">
-                  <label for="" class="form-label">Price</label>
-                  <input required name="price" type="number" class="form-control" id="">
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">Stocks available</label>
-                  <input required name="stocks" type="text" class="form-control" id="">
-                </div> -->
               </div>
-              <button class="w-100 btn btn-success mt-2">Add Stall</button>
+              <button class="w-100 btn btn-success mt-2">Save Changes</button>
             </div>
           </div>
         </div>

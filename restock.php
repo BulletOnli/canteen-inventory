@@ -204,7 +204,7 @@ include './db.php';
                   <div>
                     <label for="" class="form-label">Stall</label>
                     <select required name="stall" class="form-select" aria-label="stall name">
-                      <option selected disabled>Choose a stall</option>
+                      <option disabled>Choose a stall</option>
                       <?php
                       $sql = "SELECT * FROM stall";
                       $result = $conn->query($sql);

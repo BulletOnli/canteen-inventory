@@ -158,7 +158,6 @@ include './db.php';
             $sql = "SELECT products.id, products.product_name, products.price, products.stocks, products.totalStocks, products.category, stall.stall_name, products.last_modified FROM products INNER JOIN stall ON products.stall_id=stall.id WHERE stocks > 0 AND stocks <= 0.1 * totalStocks";
             $result = $conn->query($sql);
 
-            // Loop through each row and display data in table cells
             while ($row = $result->fetch_assoc()) {
               $product_id = $row['id'];
 
@@ -166,14 +165,25 @@ include './db.php';
               foreach ($row as $key => $value) {
                 echo "<td>" . $value . "</td>";
               }
+
+              // Edit Button with hidden form
               echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
-              echo "<button  data-bs-toggle='modal' data-bs-target='#editProductModal' type='button' class='btn btn-outline-secondary btn-sm'>
-              <i class='fa-solid fa-pencil'></i>
+              echo "<form action='edit-product.php' method='post'>";
+              echo "<input type='hidden' name='product_id' value='$product_id'>";
+              echo "<button type='submit' class='btn btn-outline-secondary btn-sm'>
+                <i class='fa-solid fa-pencil'></i> Edit
               </button>";
-              echo "<button data-productId='$product_id' data-bs-toggle='modal' data-bs-target='#deleteProductModal' type='button' class='btn btn-outline-secondary btn-sm delete-product'>
-              <i class='fa-solid fa-trash' data-productId='$product_id'></i>
+              echo "</form>";
+
+              // Delete Button with hidden form
+              echo "<form action='deleteProduct.php' method='post' onsubmit='return confirm(\"Are you sure you want to delete this product?\")'>";
+              echo "<input type='hidden' name='productId' value='$product_id'>";
+              echo "<button type='submit' class='btn btn-outline-secondary btn-sm'>
+                <i class='fa-solid fa-trash'></i> Delete
               </button>";
+              echo "</form>";
               echo "</td>";
+
               echo "</tr>";
             }
             ?>
@@ -203,43 +213,7 @@ include './db.php';
     </div>
   </main>
 
-  <!-- Edit Product Modal -->
-  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="editProductModal">Edit Product</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Delete Product Modal -->
-  <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="deleteProductModal">Delete Product</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Do you want to delete this product?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger confirm-btn">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

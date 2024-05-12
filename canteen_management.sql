@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2024 at 05:05 PM
+-- Generation Time: May 12, 2024 at 05:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,26 +28,26 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+  `id` int(255) NOT NULL,
   `product_name` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
-  `stocks` int(11) NOT NULL,
+  `price` int(255) NOT NULL,
+  `stocks` int(255) NOT NULL,
+  `totalStocks` int(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `stall_id` int(11) NOT NULL,
-  `last_modified` date NOT NULL DEFAULT current_timestamp(),
-  `isAvailable` tinyint(1) NOT NULL DEFAULT 1
+  `isAvailable` tinyint(1) NOT NULL,
+  `last_modified` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `product_name`, `price`, `stocks`, `category`, `stall_id`, `last_modified`, `isAvailable`) VALUES
-(53, 'sfsdf', 1231, 12, 'snacks', 1, '2024-04-09', 1),
-(54, 'Yakult', 20, 100, 'beverages', 1, '2024-04-08', 1),
-(55, 'Yakult', 20, 100, 'beverages', 2, '2024-04-09', 1),
-(56, 'Cheese cake', 20, 400, 'snacks', 1, '2024-04-10', 1),
-(57, 'Kanin', 341, 1000, 'desserts', 2, '2024-04-07', 1);
+INSERT INTO `products` (`id`, `product_name`, `price`, `stocks`, `totalStocks`, `category`, `stall_id`, `isAvailable`, `last_modified`) VALUES
+(18, 'Product 1', 10, 100, 100, 'snacks', 10, 1, '2024-05-12'),
+(19, 'Product 2', 43, 23, 23, 'snacks', 11, 1, '2024-05-12'),
+(20, 'Product no stock', 99, 0, 0, 'sandwiches', 11, 1, '2024-05-12'),
+(21, 'Low stock product', 55, 10, 1000, 'beverages', 10, 1, '2024-05-12');
 
 -- --------------------------------------------------------
 
@@ -68,8 +68,8 @@ CREATE TABLE `stall` (
 --
 
 INSERT INTO `stall` (`id`, `stall_name`, `stall_owner_id`, `total_products`, `last_modified`) VALUES
-(1, 'STALL A', 16, 89, '2024-04-02'),
-(2, 'Stall B', 16, 1231, '2024-04-10');
+(10, 'Stall 1', 0, 2, '2024-05-12'),
+(11, 'Stall 2', 0, 2, '2024-05-12');
 
 -- --------------------------------------------------------
 
@@ -91,8 +91,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `created_at`) VALUES
-(16, 'admin', 'admin', 'admin', '$2y$10$nijQeemI/33roOLe7YHfF.HAstObuaI9.bfTSKrRGScCvrK18kGZS', '2024-03-19'),
-(17, 'gg', 'gg', 'gg', '$2y$10$H1cYWNvEwbp8v1s9IR0JEO2c/WI0NbkFOZF8ISoNIytD4wJE5/pcO', '2024-04-02');
+(16, 'admin', 'admin', 'admin', '$2y$10$nijQeemI/33roOLe7YHfF.HAstObuaI9.bfTSKrRGScCvrK18kGZS', '2024-03-19');
 
 --
 -- Indexes for dumped tables
@@ -124,19 +123,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `stall`
 --
 ALTER TABLE `stall`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
