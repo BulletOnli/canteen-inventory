@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $productId = $_POST["productId"];
   $newStockLevel = $_POST["stocks"];
 
-  $checkStmt = $conn->prepare("SELECT stocks FROM products WHERE id = ?");
+  $checkStmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
   $checkStmt->bind_param("i", $productId);
   $checkStmt->execute();
   $checkResult = $checkStmt->get_result();
@@ -24,9 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $checkRow = $checkResult->fetch_assoc();
     $currentStock = (int) $checkRow['stocks'];
+    $currentTotalStock = (int) $checkRow['totalStocks'];
     $updatedStock = $currentStock + $newStockLevel;
-    $stmt = $conn->prepare("UPDATE products SET stocks = ? WHERE id = ?");
-    $stmt->bind_param("di", $updatedStock, $productId);
+    $updatedTotalStocks = $currentTotalStock + $newStockLevel;
+    $stmt = $conn->prepare("UPDATE products SET stocks = ?, totalStocks = ? WHERE id = ?");
+    $stmt->bind_param("dii", $updatedStock, $updatedTotalStocks, $productId);
 
     if ($stmt->execute()) {
       echo "

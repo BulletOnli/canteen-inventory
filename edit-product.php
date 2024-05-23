@@ -188,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input required name="stocks" type="text" class="form-control" id="stocks" value="<?php echo $stocks; ?>">
                   </div>
                 </div>
-                <button class="w-100 btn btn-success mt-2">Add Product</button>
+                <button class="w-100 btn btn-success mt-2">Save Changes</button>
               </div>
             </div>
           </div>

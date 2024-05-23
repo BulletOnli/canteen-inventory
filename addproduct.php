@@ -229,7 +229,7 @@ include 'db.php';
                 </div>
                 <div class="mb-3">
                   <label for="" class="form-label">Category</label>
-                  <select name="category" class="form-select" aria-label="Product Category">
+                  <select required name="category" class="form-select" aria-label="Product Category">
                     <option selected disabled>Choose product category</option>
                     <option value="beverages">Beverages</option>
                     <option value="snacks">Snacks</option>

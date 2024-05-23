@@ -161,24 +161,32 @@ include './db.php';
                 echo "<td>" . $value . "</td>";
               }
 
-              // Edit Button with hidden form
               echo "<td class='d-flex align-items-center justify-content-center gap-2'>";
+              // Restock Button with hidden form
+              echo "<form action='restock.php' method='post'>";
+              echo "<input type='hidden' name='productId' value='$product_id'>";
+              echo "<button type='submit' class='btn btn-outline-primary btn-sm'>
+              <i class='fa-solid fa-plus'></i> Restock
+              </button>";
+              echo "</form>";
+
+              // Edit Button with hidden form
               echo "<form action='edit-product.php' method='post'>";
               echo "<input type='hidden' name='product_id' value='$product_id'>";
               echo "<button type='submit' class='btn btn-outline-secondary btn-sm'>
-                <i class='fa-solid fa-pencil'></i> Edit
-              </button>";
+        <i class='fa-solid fa-pencil'></i>
+      </button>";
               echo "</form>";
 
               // Delete Button with hidden form
               echo "<form action='deleteProduct.php' method='post' onsubmit='return confirm(\"Are you sure you want to delete this product?\")'>";
               echo "<input type='hidden' name='productId' value='$product_id'>";
               echo "<button type='submit' class='btn btn-outline-secondary btn-sm'>
-                <i class='fa-solid fa-trash'></i> Delete
-              </button>";
+        <i class='fa-solid fa-trash'></i>
+      </button>";
               echo "</form>";
-              echo "</td>";
 
+              echo "</td>";
               echo "</tr>";
             }
             ?>

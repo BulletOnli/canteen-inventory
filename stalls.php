@@ -174,7 +174,7 @@ if ($result->num_rows > 0) {
                       </div>
                       <div class="col">
                         <form action='delete-stall.php' method='post' onsubmit="return confirm('Are you sure you want to delete this stall? This will also delete all associated products.')">
-                          <input type='hidden' name='stall_id' value='<?php echo $stall['id']; ?>'> <button disabled type='submit' class='w-100 btn btn-sm btn-danger'>
+                          <input type='hidden' name='stall_id' value='<?php echo $stall['id']; ?>'> <button type='submit' class='w-100 btn btn-sm btn-danger'>
                             <i class='fa-solid fa-trash'></i> Delete
                           </button>
                         </form>
